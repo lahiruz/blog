@@ -2,11 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { getSongList } from "../actions";
+import { getPostsAndUsers } from "../actions";
+import UserHeader from "./UserHeader";
 
 const PostList = (props) => {
   useEffect(() => {
-    props.getSongList();
+    props.getPostsAndUsers();
   }, []);
 
   return (
@@ -21,6 +22,7 @@ const PostList = (props) => {
                 <div className="description">
                   <h3>{d.title}</h3>
                   <p>{d.body}</p>
+                  <UserHeader userId={d.userId}></UserHeader>
                 </div>
               </div>
             </div>
@@ -31,12 +33,11 @@ const PostList = (props) => {
 };
 
 const stateToProps = (state) => {
-  console.log(state);
   return { posts: state.posts };
 };
 
 const dispatchToProps = {
-  getSongList,
+    getPostsAndUsers,
 };
 
 export default connect(stateToProps, dispatchToProps)(PostList);
